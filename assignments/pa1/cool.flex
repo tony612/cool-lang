@@ -44,6 +44,7 @@ extern YYSTYPE cool_yylval;
  */
 
 int commentDepth = 0;
+int strError = 0;
 
 %}
 
@@ -118,48 +119,77 @@ WHITE_SPACE  [ \t\r]+
 {NEW}      { return (NEW); }
 {ISVOID}    { return (ISVOID); }
 
-{STR_NON_ESCAPE_ERROR}  {
-  cool_yylval.error_msg = "Unterminated string constant";
-  curr_lineno++;
-  return (ERROR);
-};
+  /* {STR_NON_ESCAPE_ERROR}  { */
+  /*   cool_yylval.error_msg = "Unterminated string constant"; */
+  /*   curr_lineno++; */
+  /*   return (ERROR); */
+  /* }; */
 
-\"      {
-  printf("string begin");
+<INITIAL>\"      {
+  string_buf_ptr = string_buf;
+  strError = 0;
   BEGIN(STRING);
 }
 <STRING>\"    {
-  printf("string end");
   BEGIN(INITIAL);
+
+  if (strError == 0) {
+  cool_yylval.symbol = stringtable.add_string(string_buf);
+  *string_buf_ptr = '\0';
+
+  return (STR_CONST);
+  } else {
+    strError = 0;
+  }
 }
 <STRING>\0    {
   cool_yylval.error_msg = "String contains null character";
+  strError = 1;
   return (ERROR);
 }
-<STRING>[^"] {}
-{STR_CONST}    {
-  // printf("string Const");
-  int len = strlen(yytext);
-  if (len > MAX_STR_CONST) {
-    cool_yylval.error_msg = "String constant too long";
-    return (ERROR);
-  }
-  char* str = new char[len - 2];
-  // printf("%d", len);
-  // printf("%d", strchr(yytext, '\0'));
-  for (int i = 1;i < len - 1;i++) {
-    char c = yytext[i];
-    if (c == '\0') {
-      //if (i < len - 2 && yytext[i + 1] == '0') {
-      cool_yylval.error_msg = "String contains null character";
-      return (ERROR);
-      //}
-    }
-    str[i - 1] = c;
-  }
-  cool_yylval.symbol = stringtable.add_string(str);
-  return (STR_CONST);
+<STRING>\n    {
+  cool_yylval.error_msg = "Unterminated string constant";
+  curr_lineno++;
+  strError = 1;
+  return (ERROR);
 }
+<STRING>\\n  *string_buf_ptr++ = '\n';
+<STRING>\\t  *string_buf_ptr++ = '\t';
+<STRING>\\b  *string_buf_ptr++ = '\b';
+<STRING>\\f  *string_buf_ptr++ = '\f';
+
+<STRING>\\(.|\n) {
+  *string_buf_ptr++ = yytext[1];
+}
+
+<STRING>[^\\\n\"\0]+        {
+  char *yptr = yytext;
+
+  while ( *yptr ) { *string_buf_ptr++ = *yptr++; }
+}
+  /* {STR_CONST}    { */
+  /*   // printf("string Const"); */
+  /*   int len = strlen(yytext); */
+  /*   if (len > MAX_STR_CONST) { */
+  /*     cool_yylval.error_msg = "String constant too long"; */
+  /*     return (ERROR); */
+  /*   } */
+  /*   char* str = new char[len - 2]; */
+  /*   // printf("%d", len); */
+  /*   // printf("%d", strchr(yytext, '\0')); */
+  /*   for (int i = 1;i < len - 1;i++) { */
+  /*     char c = yytext[i]; */
+  /*     if (c == '\0') { */
+  /*       //if (i < len - 2 && yytext[i + 1] == '0') { */
+  /*       cool_yylval.error_msg = "String contains null character"; */
+  /*       return (ERROR); */
+  /*       //} */
+  /*     } */
+  /*     str[i - 1] = c; */
+  /*   } */
+  /*   cool_yylval.symbol = stringtable.add_string(str); */
+  /*   return (STR_CONST); */
+  /* } */
 
 t(?i:rue)  {
   cool_yylval.boolean = 1;
