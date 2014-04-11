@@ -77,25 +77,41 @@ OBJECTID              [a-z][a-zA-Z0-9_]*
 ASSIGN                <-
 NOT                   (?i:not)
 
-LINE_COMMENT          --[^\n<<EOF>>]*(\n|<EOF>)
+LINE_COMMENT          --.*(\n|<<EOF>>)
 
 STR_NON_ESCAPE_ERROR  \"[^\"]*[^\\\"]?\n
 
 WHITE_SPACE  [ \t\r\v\f]+
 
-%x     COMMENT STRING
+%x     COMMENT STRING LINE_COMMENT
 
 
 %%
+
+<INITIAL>-- {
+  BEGIN(LINE_COMMENT);
+}
+<LINE_COMMENT>-- {
+  BEGIN(INITIAL);
+}
+<LINE_COMMENT>.* {}
+<LINE_COMMENT><<EOF>> {
+  BEGIN(INITIAL);
+}
+<LINE_COMMENT>\n {
+  curr_lineno++;
+  BEGIN(INITIAL);
+}
 
 <INITIAL,COMMENT>([^\\\n])?\(\* {
   BEGIN(COMMENT);
   commentDepth++;
 }
+
 <COMMENT>\n     {
   curr_lineno++;
 }
-<INITIAL>[^\\]?\*\)  {
+<INITIAL>[^\\\n]?\*\)  {
   BEGIN(INITIAL);
   cool_yylval.error_msg = "Unmatched *)";
   return (ERROR);
@@ -106,17 +122,15 @@ WHITE_SPACE  [ \t\r\v\f]+
   BEGIN(INITIAL);
   return (ERROR);
 }
-<COMMENT>[^\\\n]?\*\) {
+<COMMENT>\*\) {
   commentDepth--;
   if (commentDepth == 0) {
     BEGIN(INITIAL);
   }
 }
-<COMMENT>[^(\*\))\n] {}
+<COMMENT>(\*|\\\*\)|\*\\\)|\\\(\*|\(\\\*|\(\ ) {}
+<COMMENT>. {}
 
-<INITIAL,COMMENT>--.*(\n|\<\<EOF\>\>) {
-  curr_lineno++;
-}
 
 <INITIAL>\n      { curr_lineno++; }
 {CLASS}      { return (CLASS); }
@@ -138,6 +152,7 @@ WHITE_SPACE  [ \t\r\v\f]+
 {ISVOID}    { return (ISVOID); }
 
 <INITIAL>\"      {
+  memset(string_buf, 0, strlen(string_buf));
   string_buf_ptr = string_buf;
   strError = 0;
   BEGIN(STRING);
@@ -182,8 +197,11 @@ WHITE_SPACE  [ \t\r\v\f]+
 <STRING>\\b  *string_buf_ptr++ = '\b';
 <STRING>\\f  *string_buf_ptr++ = '\f';
 
-<STRING>\\(.|\n) {
+<STRING>\\[^\0\n] {
   *string_buf_ptr++ = yytext[1];
+}
+<STRING>\\\n {
+  *string_buf_ptr++ = '\n';
 }
 
 <STRING>[^\\\n\"\0]+        {
@@ -191,6 +209,7 @@ WHITE_SPACE  [ \t\r\v\f]+
 
   while ( *yptr ) { *string_buf_ptr++ = *yptr++; }
 }
+<STRING>\\ {}
 
 {NOT}      { return (NOT); }
 {ASSIGN}    { return (ASSIGN); }
