@@ -103,7 +103,7 @@ WHITE_SPACE  [ \t\r\v\f]+
   BEGIN(INITIAL);
 }
 
-<INITIAL,COMMENT>([^\\\n])?\(\* {
+<INITIAL,COMMENT>([^\\\n"])?\(\* {
   BEGIN(COMMENT);
   commentDepth++;
 }
@@ -111,7 +111,7 @@ WHITE_SPACE  [ \t\r\v\f]+
 <COMMENT>\n     {
   curr_lineno++;
 }
-<INITIAL>[^\\\n]?\*\)  {
+<INITIAL>[^\\\n\"]?\*\)  {
   BEGIN(INITIAL);
   cool_yylval.error_msg = "Unmatched *)";
   return (ERROR);
@@ -159,18 +159,18 @@ WHITE_SPACE  [ \t\r\v\f]+
 }
 <STRING>\"    {
   BEGIN(INITIAL);
-  if (strlen(string_buf) > MAX_STR_CONST) {
+  if (strlen(string_buf) >= MAX_STR_CONST) {
     cool_yylval.error_msg = "String constant too long";
     return (ERROR);
-  }
-
-  if (strError == 0) {
-  cool_yylval.symbol = stringtable.add_string(string_buf);
-  *string_buf_ptr = '\0';
-
-  return (STR_CONST);
   } else {
-    strError = 0;
+    if (strError == 0) {
+      cool_yylval.symbol = stringtable.add_string(string_buf);
+      *string_buf_ptr = '\0';
+
+      return (STR_CONST);
+    } else {
+      strError = 0;
+    }
   }
 }
 <STRING><<EOF>> {
@@ -178,9 +178,10 @@ WHITE_SPACE  [ \t\r\v\f]+
   BEGIN(INITIAL);
   return (ERROR);
 }
-<STRING>\0    {
+<STRING>\0.*\n    {
   cool_yylval.error_msg = "String contains null character";
   strError = 1;
+  BEGIN(INITIAL);
   return (ERROR);
 }
 <STRING>\n    {
@@ -193,15 +194,16 @@ WHITE_SPACE  [ \t\r\v\f]+
 <STRING>\\n {
   *string_buf_ptr++ = '\n';
 }
+<STRING>\\\n {
+  curr_lineno++;
+  *string_buf_ptr++ = '\n';
+}
 <STRING>\\t  *string_buf_ptr++ = '\t';
 <STRING>\\b  *string_buf_ptr++ = '\b';
 <STRING>\\f  *string_buf_ptr++ = '\f';
 
 <STRING>\\[^\0\n] {
   *string_buf_ptr++ = yytext[1];
-}
-<STRING>\\\n {
-  *string_buf_ptr++ = '\n';
 }
 
 <STRING>[^\\\n\"\0]+        {
