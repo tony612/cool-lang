@@ -1,0 +1,16 @@
+19,31c19
+<       Object
+< 
+<       _static_dispatch
+< 
+<         _object
+<           self
+<         : _no_type
+<         Test
+<         bar
+<         (
+<         )
+<       : _no_type
+<     )
+---
+> Segmentation fault

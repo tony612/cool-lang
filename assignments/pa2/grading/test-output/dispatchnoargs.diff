@@ -1,0 +1,15 @@
+19,30c19
+<       Object
+< 
+<       _dispatch
+< 
+<         _object
+<           foo
+<         : _no_type
+<         bar
+<         (
+<         )
+<       : _no_type
+<     )
+---
+> Segmentation fault

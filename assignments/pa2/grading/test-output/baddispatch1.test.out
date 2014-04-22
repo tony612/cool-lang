@@ -1,0 +1,24 @@
+
+_program
+
+  _class
+    Test
+    Object
+    filename
+    (
+
+    _method
+      test
+
+      _formal
+        x
+        Int
+      String
+
+      _dispatch
+
+        _object
+          self
+        : _no_type
+        x
+Segmentation fault

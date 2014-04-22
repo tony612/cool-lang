@@ -1,0 +1,12 @@
+
+_program
+
+  _class
+    A
+    Object
+    filename
+    (
+
+    _method
+      f
+Segmentation fault
