@@ -180,20 +180,20 @@
 
     /* Feature list may be empty, but no empty features in list. */
     feature_list :
-      /* empty */
+      /* empty */ { $$ = nil_Features(); }
     | feature { $$ = single_Features($1); }
     | feature_list feature { $$ = append_Features($1, single_Features($2)); }
     ;
 
     feature :
       OBJECTID ':' TYPEID ';' { $$ = attr($1, $3, no_expr()); }
-    | OBJECTID ':' TYPEID "<-" expression ';' { $$ = attr($1, $3, $5); }
+    | OBJECTID ':' TYPEID ASSIGN expression ';' { $$ = attr($1, $3, $5); }
     | OBJECTID '(' formal_list ')' ':' TYPEID '{' expression '}' ';'
         { $$ = method($1, $3, $6, $8); }
     ;
 
     formal_list :
-      /* empty */
+      /* empty */ { $$ = nil_Formals(); }
     | formal { $$ = single_Formals($1); }
     | formal_list ',' formal { $$ = append_Formals($1, single_Formals($3)); }
     ;
@@ -201,7 +201,7 @@
     formal : OBJECTID ':' TYPEID { $$ = formal($1, $3); };
 
     expression :
-      OBJECTID "<-" expression { $$ = assign($1, $3); }
+      OBJECTID ASSIGN expression { $$ = assign($1, $3); }
     | expression '.' OBJECTID '(' expression_list ')'
         { $$ = dispatch($1, $3, $5); }
     | expression '@' TYPEID '.' OBJECTID '(' expression_list ')'
@@ -216,7 +216,7 @@
         { $$ = block($2); }
     | LET OBJECTID ':' TYPEID IN expression
         { $$ = let($2, $4, no_expr(), $6); }
-    | LET OBJECTID ':' TYPEID "<-" expression IN expression
+    | LET OBJECTID ':' TYPEID ASSIGN expression IN expression
         { $$ = let($2, $4, $6, $8); }
     | CASE expression OF case_list ESAC
         { $$ = typcase($2, $4); }
