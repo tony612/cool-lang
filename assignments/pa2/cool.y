@@ -148,8 +148,9 @@
 
     /* Precedence declarations go here. */
     %left '<' '>' '='
-    %left '+' '-'
+    %left '+' '-' ISVOID
     %left '*' '/'
+    %left '~'
 
 
     %%

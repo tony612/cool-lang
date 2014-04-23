@@ -7,11 +7,11 @@ Terminals unused in grammar
 
 State 9 conflicts: 1 shift/reduce
 State 14 conflicts: 1 shift/reduce
-State 43 conflicts: 14 shift/reduce
-State 55 conflicts: 9 shift/reduce
+State 44 conflicts: 14 shift/reduce
+State 55 conflicts: 3 shift/reduce
 State 57 conflicts: 14 shift/reduce
 State 58 conflicts: 9 shift/reduce
-State 62 conflicts: 9 shift/reduce
+State 59 conflicts: 3 shift/reduce
 State 79 conflicts: 9 shift/reduce
 State 85 conflicts: 3 shift/reduce
 State 86 conflicts: 3 shift/reduce
@@ -413,9 +413,9 @@ state 26
     BOOL_CONST  shift, and go to state 40
     OBJECTID    shift, and go to state 41
     NOT         shift, and go to state 42
-    '{'         shift, and go to state 43
-    '('         shift, and go to state 44
-    '~'         shift, and go to state 45
+    '~'         shift, and go to state 43
+    '{'         shift, and go to state 44
+    '('         shift, and go to state 45
 
     expression  go to state 46
 
@@ -472,9 +472,9 @@ state 32
     BOOL_CONST  shift, and go to state 40
     OBJECTID    shift, and go to state 41
     NOT         shift, and go to state 42
-    '{'         shift, and go to state 43
-    '('         shift, and go to state 44
-    '~'         shift, and go to state 45
+    '~'         shift, and go to state 43
+    '{'         shift, and go to state 44
+    '('         shift, and go to state 45
 
     expression  go to state 50
 
@@ -504,9 +504,9 @@ state 34
     BOOL_CONST  shift, and go to state 40
     OBJECTID    shift, and go to state 41
     NOT         shift, and go to state 42
-    '{'         shift, and go to state 43
-    '('         shift, and go to state 44
-    '~'         shift, and go to state 45
+    '~'         shift, and go to state 43
+    '{'         shift, and go to state 44
+    '('         shift, and go to state 45
 
     expression  go to state 52
 
@@ -526,9 +526,9 @@ state 35
     BOOL_CONST  shift, and go to state 40
     OBJECTID    shift, and go to state 41
     NOT         shift, and go to state 42
-    '{'         shift, and go to state 43
-    '('         shift, and go to state 44
-    '~'         shift, and go to state 45
+    '~'         shift, and go to state 43
+    '{'         shift, and go to state 44
+    '('         shift, and go to state 45
 
     expression  go to state 53
 
@@ -555,9 +555,9 @@ state 37
     BOOL_CONST  shift, and go to state 40
     OBJECTID    shift, and go to state 41
     NOT         shift, and go to state 42
-    '{'         shift, and go to state 43
-    '('         shift, and go to state 44
-    '~'         shift, and go to state 45
+    '~'         shift, and go to state 43
+    '{'         shift, and go to state 44
+    '('         shift, and go to state 45
 
     expression  go to state 55
 
@@ -610,75 +610,14 @@ state 42
     BOOL_CONST  shift, and go to state 40
     OBJECTID    shift, and go to state 41
     NOT         shift, and go to state 42
-    '{'         shift, and go to state 43
-    '('         shift, and go to state 44
-    '~'         shift, and go to state 45
+    '~'         shift, and go to state 43
+    '{'         shift, and go to state 44
+    '('         shift, and go to state 45
 
     expression  go to state 58
 
 
 state 43
-
-   24 expression: '{' . expression_list '}'
-
-    IF          shift, and go to state 32
-    LET         shift, and go to state 33
-    WHILE       shift, and go to state 34
-    CASE        shift, and go to state 35
-    NEW         shift, and go to state 36
-    ISVOID      shift, and go to state 37
-    STR_CONST   shift, and go to state 38
-    INT_CONST   shift, and go to state 39
-    BOOL_CONST  shift, and go to state 40
-    OBJECTID    shift, and go to state 41
-    NOT         shift, and go to state 42
-    '{'         shift, and go to state 43
-    '('         shift, and go to state 44
-    '~'         shift, and go to state 45
-
-    IF          [reduce using rule 44 (expression_list)]
-    LET         [reduce using rule 44 (expression_list)]
-    WHILE       [reduce using rule 44 (expression_list)]
-    CASE        [reduce using rule 44 (expression_list)]
-    NEW         [reduce using rule 44 (expression_list)]
-    ISVOID      [reduce using rule 44 (expression_list)]
-    STR_CONST   [reduce using rule 44 (expression_list)]
-    INT_CONST   [reduce using rule 44 (expression_list)]
-    BOOL_CONST  [reduce using rule 44 (expression_list)]
-    OBJECTID    [reduce using rule 44 (expression_list)]
-    NOT         [reduce using rule 44 (expression_list)]
-    '{'         [reduce using rule 44 (expression_list)]
-    '('         [reduce using rule 44 (expression_list)]
-    '~'         [reduce using rule 44 (expression_list)]
-    $default    reduce using rule 44 (expression_list)
-
-    expression       go to state 59
-    expression_list  go to state 60
-
-
-state 44
-
-   39 expression: '(' . expression ')'
-
-    IF          shift, and go to state 32
-    LET         shift, and go to state 33
-    WHILE       shift, and go to state 34
-    CASE        shift, and go to state 35
-    NEW         shift, and go to state 36
-    ISVOID      shift, and go to state 37
-    STR_CONST   shift, and go to state 38
-    INT_CONST   shift, and go to state 39
-    BOOL_CONST  shift, and go to state 40
-    OBJECTID    shift, and go to state 41
-    NOT         shift, and go to state 42
-    '{'         shift, and go to state 43
-    '('         shift, and go to state 44
-    '~'         shift, and go to state 45
-
-    expression  go to state 61
-
-
-state 45
 
    34 expression: '~' . expression
 
@@ -693,9 +632,70 @@ state 45
     BOOL_CONST  shift, and go to state 40
     OBJECTID    shift, and go to state 41
     NOT         shift, and go to state 42
-    '{'         shift, and go to state 43
-    '('         shift, and go to state 44
-    '~'         shift, and go to state 45
+    '~'         shift, and go to state 43
+    '{'         shift, and go to state 44
+    '('         shift, and go to state 45
+
+    expression  go to state 59
+
+
+state 44
+
+   24 expression: '{' . expression_list '}'
+
+    IF          shift, and go to state 32
+    LET         shift, and go to state 33
+    WHILE       shift, and go to state 34
+    CASE        shift, and go to state 35
+    NEW         shift, and go to state 36
+    ISVOID      shift, and go to state 37
+    STR_CONST   shift, and go to state 38
+    INT_CONST   shift, and go to state 39
+    BOOL_CONST  shift, and go to state 40
+    OBJECTID    shift, and go to state 41
+    NOT         shift, and go to state 42
+    '~'         shift, and go to state 43
+    '{'         shift, and go to state 44
+    '('         shift, and go to state 45
+
+    IF          [reduce using rule 44 (expression_list)]
+    LET         [reduce using rule 44 (expression_list)]
+    WHILE       [reduce using rule 44 (expression_list)]
+    CASE        [reduce using rule 44 (expression_list)]
+    NEW         [reduce using rule 44 (expression_list)]
+    ISVOID      [reduce using rule 44 (expression_list)]
+    STR_CONST   [reduce using rule 44 (expression_list)]
+    INT_CONST   [reduce using rule 44 (expression_list)]
+    BOOL_CONST  [reduce using rule 44 (expression_list)]
+    OBJECTID    [reduce using rule 44 (expression_list)]
+    NOT         [reduce using rule 44 (expression_list)]
+    '~'         [reduce using rule 44 (expression_list)]
+    '{'         [reduce using rule 44 (expression_list)]
+    '('         [reduce using rule 44 (expression_list)]
+    $default    reduce using rule 44 (expression_list)
+
+    expression       go to state 60
+    expression_list  go to state 61
+
+
+state 45
+
+   39 expression: '(' . expression ')'
+
+    IF          shift, and go to state 32
+    LET         shift, and go to state 33
+    WHILE       shift, and go to state 34
+    CASE        shift, and go to state 35
+    NEW         shift, and go to state 36
+    ISVOID      shift, and go to state 37
+    STR_CONST   shift, and go to state 38
+    INT_CONST   shift, and go to state 39
+    BOOL_CONST  shift, and go to state 40
+    OBJECTID    shift, and go to state 41
+    NOT         shift, and go to state 42
+    '~'         shift, and go to state 43
+    '{'         shift, and go to state 44
+    '('         shift, and go to state 45
 
     expression  go to state 62
 
@@ -852,22 +852,12 @@ state 55
    36           | expression . "<=" expression
    37           | expression . '=' expression
 
-    '<'   shift, and go to state 63
-    '='   shift, and go to state 64
-    '+'   shift, and go to state 65
-    '-'   shift, and go to state 66
     '*'   shift, and go to state 67
     '/'   shift, and go to state 68
     '.'   shift, and go to state 70
     '@'   shift, and go to state 71
     "<="  shift, and go to state 72
 
-    '<'       [reduce using rule 29 (expression)]
-    '='       [reduce using rule 29 (expression)]
-    '+'       [reduce using rule 29 (expression)]
-    '-'       [reduce using rule 29 (expression)]
-    '*'       [reduce using rule 29 (expression)]
-    '/'       [reduce using rule 29 (expression)]
     '.'       [reduce using rule 29 (expression)]
     '@'       [reduce using rule 29 (expression)]
     "<="      [reduce using rule 29 (expression)]
@@ -889,9 +879,9 @@ state 56
     BOOL_CONST  shift, and go to state 40
     OBJECTID    shift, and go to state 41
     NOT         shift, and go to state 42
-    '{'         shift, and go to state 43
-    '('         shift, and go to state 44
-    '~'         shift, and go to state 45
+    '~'         shift, and go to state 43
+    '{'         shift, and go to state 44
+    '('         shift, and go to state 45
 
     expression  go to state 79
 
@@ -911,9 +901,9 @@ state 57
     BOOL_CONST  shift, and go to state 40
     OBJECTID    shift, and go to state 41
     NOT         shift, and go to state 42
-    '{'         shift, and go to state 43
-    '('         shift, and go to state 44
-    '~'         shift, and go to state 45
+    '~'         shift, and go to state 43
+    '{'         shift, and go to state 44
+    '('         shift, and go to state 45
 
     IF          [reduce using rule 44 (expression_list)]
     LET         [reduce using rule 44 (expression_list)]
@@ -926,12 +916,12 @@ state 57
     BOOL_CONST  [reduce using rule 44 (expression_list)]
     OBJECTID    [reduce using rule 44 (expression_list)]
     NOT         [reduce using rule 44 (expression_list)]
+    '~'         [reduce using rule 44 (expression_list)]
     '{'         [reduce using rule 44 (expression_list)]
     '('         [reduce using rule 44 (expression_list)]
-    '~'         [reduce using rule 44 (expression_list)]
     $default    reduce using rule 44 (expression_list)
 
-    expression       go to state 59
+    expression       go to state 60
     expression_list  go to state 80
 
 
@@ -978,6 +968,29 @@ state 59
    31           | expression . '-' expression
    32           | expression . '*' expression
    33           | expression . '/' expression
+   34           | '~' expression .
+   35           | expression . '<' expression
+   36           | expression . "<=" expression
+   37           | expression . '=' expression
+
+    '.'   shift, and go to state 70
+    '@'   shift, and go to state 71
+    "<="  shift, and go to state 72
+
+    '.'       [reduce using rule 34 (expression)]
+    '@'       [reduce using rule 34 (expression)]
+    "<="      [reduce using rule 34 (expression)]
+    $default  reduce using rule 34 (expression)
+
+
+state 60
+
+   17 expression: expression . '.' OBJECTID '(' expression_list ')'
+   18           | expression . '@' TYPEID '.' OBJECTID '(' expression_list ')'
+   30           | expression . '+' expression
+   31           | expression . '-' expression
+   32           | expression . '*' expression
+   33           | expression . '/' expression
    35           | expression . '<' expression
    36           | expression . "<=" expression
    37           | expression . '=' expression
@@ -995,7 +1008,7 @@ state 59
     "<="  shift, and go to state 72
 
 
-state 60
+state 61
 
    24 expression: '{' expression_list . '}'
    46 expression_list: expression_list . expression ';'
@@ -1011,15 +1024,15 @@ state 60
     BOOL_CONST  shift, and go to state 40
     OBJECTID    shift, and go to state 41
     NOT         shift, and go to state 42
-    '{'         shift, and go to state 43
+    '~'         shift, and go to state 43
+    '{'         shift, and go to state 44
     '}'         shift, and go to state 82
-    '('         shift, and go to state 44
-    '~'         shift, and go to state 45
+    '('         shift, and go to state 45
 
     expression  go to state 83
 
 
-state 61
+state 62
 
    17 expression: expression . '.' OBJECTID '(' expression_list ')'
    18           | expression . '@' TYPEID '.' OBJECTID '(' expression_list ')'
@@ -1044,41 +1057,6 @@ state 61
     "<="  shift, and go to state 72
 
 
-state 62
-
-   17 expression: expression . '.' OBJECTID '(' expression_list ')'
-   18           | expression . '@' TYPEID '.' OBJECTID '(' expression_list ')'
-   30           | expression . '+' expression
-   31           | expression . '-' expression
-   32           | expression . '*' expression
-   33           | expression . '/' expression
-   34           | '~' expression .
-   35           | expression . '<' expression
-   36           | expression . "<=" expression
-   37           | expression . '=' expression
-
-    '<'   shift, and go to state 63
-    '='   shift, and go to state 64
-    '+'   shift, and go to state 65
-    '-'   shift, and go to state 66
-    '*'   shift, and go to state 67
-    '/'   shift, and go to state 68
-    '.'   shift, and go to state 70
-    '@'   shift, and go to state 71
-    "<="  shift, and go to state 72
-
-    '<'       [reduce using rule 34 (expression)]
-    '='       [reduce using rule 34 (expression)]
-    '+'       [reduce using rule 34 (expression)]
-    '-'       [reduce using rule 34 (expression)]
-    '*'       [reduce using rule 34 (expression)]
-    '/'       [reduce using rule 34 (expression)]
-    '.'       [reduce using rule 34 (expression)]
-    '@'       [reduce using rule 34 (expression)]
-    "<="      [reduce using rule 34 (expression)]
-    $default  reduce using rule 34 (expression)
-
-
 state 63
 
    35 expression: expression '<' . expression
@@ -1094,9 +1072,9 @@ state 63
     BOOL_CONST  shift, and go to state 40
     OBJECTID    shift, and go to state 41
     NOT         shift, and go to state 42
-    '{'         shift, and go to state 43
-    '('         shift, and go to state 44
-    '~'         shift, and go to state 45
+    '~'         shift, and go to state 43
+    '{'         shift, and go to state 44
+    '('         shift, and go to state 45
 
     expression  go to state 85
 
@@ -1116,9 +1094,9 @@ state 64
     BOOL_CONST  shift, and go to state 40
     OBJECTID    shift, and go to state 41
     NOT         shift, and go to state 42
-    '{'         shift, and go to state 43
-    '('         shift, and go to state 44
-    '~'         shift, and go to state 45
+    '~'         shift, and go to state 43
+    '{'         shift, and go to state 44
+    '('         shift, and go to state 45
 
     expression  go to state 86
 
@@ -1138,9 +1116,9 @@ state 65
     BOOL_CONST  shift, and go to state 40
     OBJECTID    shift, and go to state 41
     NOT         shift, and go to state 42
-    '{'         shift, and go to state 43
-    '('         shift, and go to state 44
-    '~'         shift, and go to state 45
+    '~'         shift, and go to state 43
+    '{'         shift, and go to state 44
+    '('         shift, and go to state 45
 
     expression  go to state 87
 
@@ -1160,9 +1138,9 @@ state 66
     BOOL_CONST  shift, and go to state 40
     OBJECTID    shift, and go to state 41
     NOT         shift, and go to state 42
-    '{'         shift, and go to state 43
-    '('         shift, and go to state 44
-    '~'         shift, and go to state 45
+    '~'         shift, and go to state 43
+    '{'         shift, and go to state 44
+    '('         shift, and go to state 45
 
     expression  go to state 88
 
@@ -1182,9 +1160,9 @@ state 67
     BOOL_CONST  shift, and go to state 40
     OBJECTID    shift, and go to state 41
     NOT         shift, and go to state 42
-    '{'         shift, and go to state 43
-    '('         shift, and go to state 44
-    '~'         shift, and go to state 45
+    '~'         shift, and go to state 43
+    '{'         shift, and go to state 44
+    '('         shift, and go to state 45
 
     expression  go to state 89
 
@@ -1204,9 +1182,9 @@ state 68
     BOOL_CONST  shift, and go to state 40
     OBJECTID    shift, and go to state 41
     NOT         shift, and go to state 42
-    '{'         shift, and go to state 43
-    '('         shift, and go to state 44
-    '~'         shift, and go to state 45
+    '~'         shift, and go to state 43
+    '{'         shift, and go to state 44
+    '('         shift, and go to state 45
 
     expression  go to state 90
 
@@ -1247,9 +1225,9 @@ state 72
     BOOL_CONST  shift, and go to state 40
     OBJECTID    shift, and go to state 41
     NOT         shift, and go to state 42
-    '{'         shift, and go to state 43
-    '('         shift, and go to state 44
-    '~'         shift, and go to state 45
+    '~'         shift, and go to state 43
+    '{'         shift, and go to state 44
+    '('         shift, and go to state 45
 
     expression  go to state 93
 
@@ -1276,9 +1254,9 @@ state 74
     BOOL_CONST  shift, and go to state 40
     OBJECTID    shift, and go to state 41
     NOT         shift, and go to state 42
-    '{'         shift, and go to state 43
-    '('         shift, and go to state 44
-    '~'         shift, and go to state 45
+    '~'         shift, and go to state 43
+    '{'         shift, and go to state 44
+    '('         shift, and go to state 45
 
     expression  go to state 95
 
@@ -1306,9 +1284,9 @@ state 76
     BOOL_CONST  shift, and go to state 40
     OBJECTID    shift, and go to state 41
     NOT         shift, and go to state 42
-    '{'         shift, and go to state 43
-    '('         shift, and go to state 44
-    '~'         shift, and go to state 45
+    '~'         shift, and go to state 43
+    '{'         shift, and go to state 44
+    '('         shift, and go to state 45
 
     expression  go to state 97
 
@@ -1329,9 +1307,9 @@ state 77
     BOOL_CONST  shift, and go to state 40
     OBJECTID    shift, and go to state 41
     NOT         shift, and go to state 42
-    '{'         shift, and go to state 43
-    '('         shift, and go to state 44
-    '~'         shift, and go to state 45
+    '~'         shift, and go to state 43
+    '{'         shift, and go to state 44
+    '('         shift, and go to state 45
 
     expression  go to state 98
 
@@ -1397,10 +1375,10 @@ state 80
     BOOL_CONST  shift, and go to state 40
     OBJECTID    shift, and go to state 41
     NOT         shift, and go to state 42
-    '{'         shift, and go to state 43
-    '('         shift, and go to state 44
+    '~'         shift, and go to state 43
+    '{'         shift, and go to state 44
+    '('         shift, and go to state 45
     ')'         shift, and go to state 102
-    '~'         shift, and go to state 45
 
     expression  go to state 83
 
@@ -1665,9 +1643,9 @@ state 94
     BOOL_CONST  shift, and go to state 40
     OBJECTID    shift, and go to state 41
     NOT         shift, and go to state 42
-    '{'         shift, and go to state 43
-    '('         shift, and go to state 44
-    '~'         shift, and go to state 45
+    '~'         shift, and go to state 43
+    '{'         shift, and go to state 44
+    '('         shift, and go to state 45
 
     expression  go to state 106
 
@@ -1812,9 +1790,9 @@ state 104
     BOOL_CONST  shift, and go to state 40
     OBJECTID    shift, and go to state 41
     NOT         shift, and go to state 42
-    '{'         shift, and go to state 43
-    '('         shift, and go to state 44
-    '~'         shift, and go to state 45
+    '~'         shift, and go to state 43
+    '{'         shift, and go to state 44
+    '('         shift, and go to state 45
 
     IF          [reduce using rule 44 (expression_list)]
     LET         [reduce using rule 44 (expression_list)]
@@ -1827,12 +1805,12 @@ state 104
     BOOL_CONST  [reduce using rule 44 (expression_list)]
     OBJECTID    [reduce using rule 44 (expression_list)]
     NOT         [reduce using rule 44 (expression_list)]
+    '~'         [reduce using rule 44 (expression_list)]
     '{'         [reduce using rule 44 (expression_list)]
     '('         [reduce using rule 44 (expression_list)]
-    '~'         [reduce using rule 44 (expression_list)]
     $default    reduce using rule 44 (expression_list)
 
-    expression       go to state 59
+    expression       go to state 60
     expression_list  go to state 116
 
 
@@ -1883,9 +1861,9 @@ state 107
     BOOL_CONST  shift, and go to state 40
     OBJECTID    shift, and go to state 41
     NOT         shift, and go to state 42
-    '{'         shift, and go to state 43
-    '('         shift, and go to state 44
-    '~'         shift, and go to state 45
+    '~'         shift, and go to state 43
+    '{'         shift, and go to state 44
+    '('         shift, and go to state 45
 
     expression  go to state 119
 
@@ -1905,9 +1883,9 @@ state 108
     BOOL_CONST  shift, and go to state 40
     OBJECTID    shift, and go to state 41
     NOT         shift, and go to state 42
-    '{'         shift, and go to state 43
-    '('         shift, and go to state 44
-    '~'         shift, and go to state 45
+    '~'         shift, and go to state 43
+    '{'         shift, and go to state 44
+    '('         shift, and go to state 45
 
     expression  go to state 120
 
@@ -1927,9 +1905,9 @@ state 109
     BOOL_CONST  shift, and go to state 40
     OBJECTID    shift, and go to state 41
     NOT         shift, and go to state 42
-    '{'         shift, and go to state 43
-    '('         shift, and go to state 44
-    '~'         shift, and go to state 45
+    '~'         shift, and go to state 43
+    '{'         shift, and go to state 44
+    '('         shift, and go to state 45
 
     expression  go to state 121
 
@@ -1992,10 +1970,10 @@ state 116
     BOOL_CONST  shift, and go to state 40
     OBJECTID    shift, and go to state 41
     NOT         shift, and go to state 42
-    '{'         shift, and go to state 43
-    '('         shift, and go to state 44
+    '~'         shift, and go to state 43
+    '{'         shift, and go to state 44
+    '('         shift, and go to state 45
     ')'         shift, and go to state 123
-    '~'         shift, and go to state 45
 
     expression  go to state 83
 
@@ -2128,9 +2106,9 @@ state 124
     BOOL_CONST  shift, and go to state 40
     OBJECTID    shift, and go to state 41
     NOT         shift, and go to state 42
-    '{'         shift, and go to state 43
-    '('         shift, and go to state 44
-    '~'         shift, and go to state 45
+    '~'         shift, and go to state 43
+    '{'         shift, and go to state 44
+    '('         shift, and go to state 45
 
     IF          [reduce using rule 44 (expression_list)]
     LET         [reduce using rule 44 (expression_list)]
@@ -2143,12 +2121,12 @@ state 124
     BOOL_CONST  [reduce using rule 44 (expression_list)]
     OBJECTID    [reduce using rule 44 (expression_list)]
     NOT         [reduce using rule 44 (expression_list)]
+    '~'         [reduce using rule 44 (expression_list)]
     '{'         [reduce using rule 44 (expression_list)]
     '('         [reduce using rule 44 (expression_list)]
-    '~'         [reduce using rule 44 (expression_list)]
     $default    reduce using rule 44 (expression_list)
 
-    expression       go to state 59
+    expression       go to state 60
     expression_list  go to state 129
 
 
@@ -2181,9 +2159,9 @@ state 127
     BOOL_CONST  shift, and go to state 40
     OBJECTID    shift, and go to state 41
     NOT         shift, and go to state 42
-    '{'         shift, and go to state 43
-    '('         shift, and go to state 44
-    '~'         shift, and go to state 45
+    '~'         shift, and go to state 43
+    '{'         shift, and go to state 44
+    '('         shift, and go to state 45
 
     expression  go to state 130
 
@@ -2203,9 +2181,9 @@ state 128
     BOOL_CONST  shift, and go to state 40
     OBJECTID    shift, and go to state 41
     NOT         shift, and go to state 42
-    '{'         shift, and go to state 43
-    '('         shift, and go to state 44
-    '~'         shift, and go to state 45
+    '~'         shift, and go to state 43
+    '{'         shift, and go to state 44
+    '('         shift, and go to state 45
 
     expression  go to state 131
 
@@ -2226,10 +2204,10 @@ state 129
     BOOL_CONST  shift, and go to state 40
     OBJECTID    shift, and go to state 41
     NOT         shift, and go to state 42
-    '{'         shift, and go to state 43
-    '('         shift, and go to state 44
+    '~'         shift, and go to state 43
+    '{'         shift, and go to state 44
+    '('         shift, and go to state 45
     ')'         shift, and go to state 132
-    '~'         shift, and go to state 45
 
     expression  go to state 83
 
