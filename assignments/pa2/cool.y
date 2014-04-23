@@ -215,6 +215,10 @@
         { $$ = cond($2, $4, $6); }
     | WHILE expression LOOP expression POOL
         { $$ = loop($2, $4); }
+    | WHILE expression LOOP expression error
+        { yyclearin; }
+    | WHILE expression error expression POOL
+        { yyclearin; }
     | '{' expression_list '}'
         { $$ = block($2); }
     | LET OBJECTID ':' TYPEID IN expression
