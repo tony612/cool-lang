@@ -147,6 +147,9 @@
     /* %type <symbol> symbol */
 
     /* Precedence declarations go here. */
+    %left '<' '>' '='
+    %left '+' '-'
+    %left '*' '/'
 
 
     %%
