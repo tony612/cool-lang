@@ -260,6 +260,8 @@
         { $$ = string_const($1); }
     | BOOL_CONST
         { $$ = bool_const($1); }
+    | error
+        { yyclearin; }
     ;
 
     expression_list :
