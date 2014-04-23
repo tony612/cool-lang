@@ -259,10 +259,10 @@
 
     expression_list :
       /* empty */ { $$ = nil_Expressions(); }
-    | expression
+    | expression ';'
         { $$ = single_Expressions($1); }
-    | expression ',' expression_list
-        { $$ = append_Expressions($3, single_Expressions($1)); }
+    | expression_list expression ';'
+        { $$ = append_Expressions($1, single_Expressions($2)); }
     ;
 
     case_list :
