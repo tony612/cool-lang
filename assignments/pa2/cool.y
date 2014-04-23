@@ -258,7 +258,7 @@
     ;
 
     expression_list :
-      /* empty */
+      /* empty */ { $$ = nil_Expressions(); }
     | expression
         { $$ = single_Expressions($1); }
     | expression ',' expression_list
@@ -271,7 +271,7 @@
     ;
 
     case :
-      OBJECTID ':' TYPEID "=>" expression ';'
+      OBJECTID ':' TYPEID DARROW expression ';'
         { $$ = branch($1, $3, $5); }
     ;
 
