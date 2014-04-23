@@ -180,6 +180,8 @@
                   $4,
                   $6,
                   stringtable.add_string(curr_filename)); }
+    | CLASS TYPEID error TYPEID '{' feature_list '}' ';'
+    { yyclearin; }
     ;
 
     /* Feature list may be empty, but no empty features in list. */
