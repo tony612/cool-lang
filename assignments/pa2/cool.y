@@ -209,7 +209,7 @@
 
     expression :
       OBJECTID ASSIGN expression { $$ = assign($1, $3); }
-    | expression '.' OBJECTID '(' expression_list ')'
+    | expression '.' OBJECTID '(' expression_list2 ')'
         { $$ = dispatch($1, $3, $5); }
     | expression '@' TYPEID '.' OBJECTID '(' expression_list2 ')'
         { $$ = static_dispatch($1, $3, $5, $7); }
@@ -268,8 +268,7 @@
     ;
 
     expression_list :
-      /* empty */ { $$ = nil_Expressions(); }
-    | expression ';'
+      expression ';'
         { $$ = single_Expressions($1); }
     | expression_list expression ';'
         { $$ = append_Expressions($1, single_Expressions($2)); }
