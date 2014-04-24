@@ -140,6 +140,7 @@
     %type <formals> formal_list
     %type <formal> formal
     %type <expressions> expression_list
+    %type <expressions> expression_list2
     %type <expression> expression
     %type <case_> case
     %type <cases> case_list
@@ -187,14 +188,14 @@
     /* Feature list may be empty, but no empty features in list. */
     feature_list :
       /* empty */ { $$ = nil_Features(); }
-    | feature { $$ = single_Features($1); }
-    | feature_list feature { $$ = append_Features($1, single_Features($2)); }
+    | feature ';' { $$ = single_Features($1); }
+    | feature_list feature ';' { $$ = append_Features($1, single_Features($2)); }
     ;
 
     feature :
-      OBJECTID ':' TYPEID ';' { $$ = attr($1, $3, no_expr()); }
-    | OBJECTID ':' TYPEID ASSIGN expression ';' { $$ = attr($1, $3, $5); }
-    | OBJECTID '(' formal_list ')' ':' TYPEID '{' expression '}' ';'
+      OBJECTID ':' TYPEID { $$ = attr($1, $3, no_expr()); }
+    | OBJECTID ':' TYPEID ASSIGN expression { $$ = attr($1, $3, $5); }
+    | OBJECTID '(' formal_list ')' ':' TYPEID '{' expression '}'
         { $$ = method($1, $3, $6, $8); }
     ;
 
@@ -210,9 +211,9 @@
       OBJECTID ASSIGN expression { $$ = assign($1, $3); }
     | expression '.' OBJECTID '(' expression_list ')'
         { $$ = dispatch($1, $3, $5); }
-    | expression '@' TYPEID '.' OBJECTID '(' expression_list ')'
+    | expression '@' TYPEID '.' OBJECTID '(' expression_list2 ')'
         { $$ = static_dispatch($1, $3, $5, $7); }
-    | OBJECTID '(' expression_list ')'
+    | OBJECTID '(' expression_list2 ')'
         { $$ = dispatch(object(idtable.add_string("self")), $1, $3); }
     | IF expression THEN expression ELSE expression FI
         { $$ = cond($2, $4, $6); }
@@ -272,6 +273,16 @@
         { $$ = single_Expressions($1); }
     | expression_list expression ';'
         { $$ = append_Expressions($1, single_Expressions($2)); }
+    ;
+
+    expression_list2 :
+      /* empty */ { $$ = nil_Expressions(); }
+    | expression
+        { $$ = single_Expressions($1); }
+    | expression_list2 ',' expression
+        { $$ = append_Expressions($1, single_Expressions($3)); }
+    | expression_list2 ',' expression ','
+        { yyclearin; }
     ;
 
     case_list :
