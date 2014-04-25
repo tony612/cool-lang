@@ -280,8 +280,6 @@
         { $$ = single_Expressions($1); }
     | expression_list2 ',' expression
         { $$ = append_Expressions($1, single_Expressions($3)); }
-    | expression_list2 ',' expression ','
-        { yyclearin; }
     ;
 
     case_list :
